@@ -3,6 +3,7 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
 const credentials = require('./client_secret.json');
 const doc = new GoogleSpreadsheet('1adzRLUfPXYV5VFw_NShSX1Gg6o7yg6awwGThWjYF6IE');
 const moment = require("moment");
+const momentTimezone = require("moment-timezone");
 const bcrypt = require('bcrypt');
 const socket = require('../socket/socketEvents');
 const mongoose = require('mongoose');
@@ -21,14 +22,74 @@ const CommonController = require('./common-controller');
 const User = require('../models/User');
 const Message = require('../models/Message');
 const constant = require('../constants/constant');
-
+var exec = require('child_process').exec;
 exports.test = async (req, res) => {
   try {
+    // const inspDate = moment("2022-12-24T06:04:27.320+00:00");
+    // const currentDate = moment();
+    // const days = moment(currentDate).diff(inspDate, 'days');
+    // console.log(days, '               days diff..........');
+
+    // const currentTimeUtc = moment().utc();
+    // const timeUtc180DaysBack = moment().utc().subtract(180, 'days');
+    // console.log(currentTimeUtc, '        currentTimeUtc......');
+    // console.log(timeUtc180DaysBack, '        timeUtc180DaysBack......');
+
+    // var lastDate = new Date("2023-06-30T05:00:00.000+00:00");
+    // var today = new Date();
+    // var subscriptionDays = Date.daysBetween(today, lastDate);
+    // console.log(subscriptionDays, '           subscriptionDays..............');
+
+    // var lastDate = moment("2023-06-30T05:00:00.000+00:00").utc();
+    // var today = moment().utc();
+    // console.log(lastDate, '        lastDate...........');
+    // console.log(today, '        today...........');
+    // var subscriptionDays = moment(lastDate).diff(today, 'days');
+    // console.log(subscriptionDays, '          subscriptionDays.........');
+
+    // var inspDate = moment("2022-10-01T19:34:57.283+00:00") // Oct 1, 2022
+		// var currentDate = moment() // Jan 30, 2023
+		// var months = moment(currentDate).diff(inspDate, 'days'); // 120
+    // console.log(months, '          months...............');
+
+
+    // let inputArray = [];
+    // for(let i=0;i<3;i++){
+    //   inputArray.push({
+    //     fromUser: "63c7a2715c4501dcc402ca7f",
+    //     toUser: "63c7a2cf5c4501dcc402ca83",
+    //     message: "hello: "+i
+    //   });
+    // }
+
+    // Message.insertMany(inputArray).then(function (inptOk, inptErr) {
+    //   if(inptErr){
+    //     console.log(inptErr, '         inptErr........');
+    //     return res.status(constant.httpCode.success).json({
+    //       success: true,
+    //       code: constant.httpCode.success,
+    //       message: constant.message.success,
+    //       data: inptErr
+    //     });
+    //   }
+    //   else{
+    //     console.log(inptOk, '         inptOk........');
+    //     return res.status(constant.httpCode.success).json({
+    //       success: true,
+    //       code: constant.httpCode.success,
+    //       message: constant.message.success,
+    //       data: inptOk
+    //     });
+    //   }
+    // });
+
+
     return res.status(200).json({
       success: true,
       code: 200,
       message: 'Success',
-      data: {}
+      data: {},
+      timeZone: momentTimezone().tz(momentTimezone.tz.guess()).format('z')
     });
   } catch (err) {
     console.log(err, '      err...........')
@@ -252,7 +313,7 @@ exports.ffMpegConversionVideo = async (req, res) => {
 
 exports.ffMpegGetFrame = async (req, res) => {
   try {
-    console.log(req?.files?.file[0], '           req?.files?.file[0]............');
+    // console.log(req?.files?.file[0], '           req?.files?.file[0]............');
 
     // const videoUrl = await CommonController.getSignedUrlS3("https://mediacardmetaverse.s3.us-east-2.amazonaws.com/nftAssetImages/1669090864212_primary_asset.mp4");
     // let process = new ffmpeg(`${videoUrl}`);
@@ -308,7 +369,7 @@ exports.ffMpegGetFrame = async (req, res) => {
 
 exports.ffMpegAddWatermark = async (req, res) => {
   try {
-    console.log(req?.files?.file[0], '           req?.files?.file[0] in ffMpegAddWatermark............');
+    // console.log(req?.files?.file[0], '           req?.files?.file[0] in ffMpegAddWatermark............');
 
     let process = new ffmpeg('./uploads/attitude-57mb.mp4');
 
@@ -419,7 +480,7 @@ exports.addWatermarkDynamic = async (req, res) => {
 
 exports.thumbSupply = async (req, res) => {
   try {
-    console.log(req?.files?.file[0], '           req?.files?.file[0]............');
+    // console.log(req?.files?.file[0], '           req?.files?.file[0]............');
     // const s3MediaUrl = "https://mediacardmetaverse.s3.us-east-2.amazonaws.com/nftAssetImages/1669090864212_primary_asset.mp4";
     const s3MediaUrl = "";
     const videoUrl = await CommonController.getSignedUrlS3(s3MediaUrl);

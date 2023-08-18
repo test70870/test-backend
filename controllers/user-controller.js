@@ -7,7 +7,6 @@ const momentTimezone = require("moment-timezone");
 const bcrypt = require('bcrypt');
 const socket = require('../socket/socketEvents');
 const mongoose = require('mongoose');
-
 const path = require('path');
 const fs = require('fs-extra');
 const uploadPath = path.join(__dirname, '../uploads/'); // Register the upload path
